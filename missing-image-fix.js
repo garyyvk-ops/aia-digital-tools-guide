@@ -2,46 +2,40 @@
   const stepTitle = "Text the screenshot first, then send the actual link during meeting!";
   const summaryTitle = "Guide customer after they signed up";
   const uploadedImage = "free cover approach .png";
- const summaryImage = "free cover approach -summary.png";
+  const summaryImage = "free cover approach -summary.png";
 
-  function currentSlideParts() {
-    const title = document.querySelector(".process-copy h2");
-    const media = document.querySelector(".process-media");
-    const image = media ? media.querySelector("img") : null;
-    return { title, media, image };
+  function setSlideImage(media, titleText, imagePath) {
+    const image = media.querySelector("img");
+
+    if (image) {
+      image.src = imagePath;
+      image.alt = titleText;
+      image.style.display = "";
+    } else {
+      const img = document.createElement("img");
+      img.src = imagePath;
+      img.alt = titleText;
+      media.innerHTML = "";
+      media.appendChild(img);
+    }
   }
 
   function fixFreeCoverSlides() {
-    const { title, media, image } = currentSlideParts();
-    if (!title || !media) return;
+    document.querySelectorAll(".process").forEach((process) => {
+      const title = process.querySelector(".process-copy h2");
+      const media = process.querySelector(".process-media");
+      if (!title || !media) return;
 
-    const text = title.textContent.trim();
+      const text = title.textContent.trim();
 
-    if (text === stepTitle) {
-      if (image) {
-        image.src = uploadedImage;
-        image.style.display = "";
-      } else {
-        const img = document.createElement("img");
-        img.src = uploadedImage;
-        img.alt = stepTitle;
-        media.innerHTML = "";
-        media.appendChild(img);
+      if (text === stepTitle) {
+        setSlideImage(media, stepTitle, uploadedImage);
       }
-    }
 
-    if (text === summaryTitle) {
-      if (image) {
-        image.src = summaryImage;
-        image.style.display = "";
-      } else {
-        const img = document.createElement("img");
-        img.src = summaryImage;
-        img.alt = summaryTitle;
-        media.innerHTML = "";
-        media.appendChild(img);
+      if (text === summaryTitle) {
+        setSlideImage(media, summaryTitle, summaryImage);
       }
-    }
+    });
   }
 
   const start = () => {
@@ -58,5 +52,7 @@
     document.addEventListener("DOMContentLoaded", start);
   } else {
     start();
+  }
+})();
   }
 })();
