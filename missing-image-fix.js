@@ -2,7 +2,7 @@
   const stepTitle = "Text the screenshot first, then send the actual link during meeting!";
   const summaryTitle = "Guide customer after they signed up";
   const uploadedImage = "free cover approach .png";
-  const summaryImage = "icari-free-cover-summary.png";
+ const summaryImage = "free cover approach -summary.png";
 
   function currentSlideParts() {
     const title = document.querySelector(".process-copy h2");
